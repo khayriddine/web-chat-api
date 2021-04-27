@@ -84,9 +84,9 @@ namespace web_chat_api.Controllers{
             }
             return Problem("Name or Password is incorrect !");
         }
-        [HttpPut]
+        [HttpGet]
         [Route("leave/{userId}/{roomId}")]
-        public ActionResult<Boolean> JoinRoom(Guid userId,Guid roomId){
+        public ActionResult<Boolean> LeaveRoom(Guid userId,Guid roomId){
             if(_context.Users == null ||_context.Rooms == null){
                 return NotFound();
             }
@@ -100,6 +100,7 @@ namespace web_chat_api.Controllers{
                 }
                 else {
                     _context.UserRooms.RemoveRange(_context.UserRooms.Where(ur => ur.RoomId == roomId && ur.UserId == userId));
+                    _context.SaveChanges();
                 }
                 
                 return Ok(true);

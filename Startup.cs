@@ -17,6 +17,7 @@ namespace web_chat_api
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +32,17 @@ namespace web_chat_api
             services.AddDbContext<ChatContext>(
                 option => option.UseSqlServer(Configuration.GetConnectionString("ServerConnection"))
                 ) ;
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200").AllowCredentials()
+                                                    .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +56,8 @@ namespace web_chat_api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
