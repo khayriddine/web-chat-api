@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using web_chat_api.Data;
 using web_chat_api.Models;
+using web_chat_api.Hubs;
 
 namespace web_chat_api.Controllers{
     [ApiController]
@@ -51,6 +52,7 @@ namespace web_chat_api.Controllers{
                 _context.UserRooms.Add(new UserRoom{UserId = room.AdminId, RoomId = room.RoomId});
                 _context.SaveChanges();
                 room.UserRooms.Clear();
+                //ChatHub.Rooms.Add(room.RoomId,room);
                 return Ok(true);
             }
             return Ok(false);

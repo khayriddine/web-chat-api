@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using web_chat_api.Data;
+using web_chat_api.Hubs;
 namespace web_chat_api
 {
     public class Startup
@@ -28,6 +29,7 @@ namespace web_chat_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddControllers();
             services.AddDbContext<ChatContext>(
                 option => option.UseSqlServer(Configuration.GetConnectionString("ServerConnection"))
@@ -63,6 +65,7 @@ namespace web_chat_api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

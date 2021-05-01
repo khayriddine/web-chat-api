@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Hubs"
   ],
-  "SelectedNode": "\\web-chat-api.csproj",
+  "SelectedNode": "\\Hubs",
   "PreviewInSolutionExplorer": false
 }
