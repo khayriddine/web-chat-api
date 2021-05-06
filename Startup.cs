@@ -19,7 +19,7 @@ namespace web_chat_api
     public class Startup
     {
         private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-        public Startup(IConfiguration configuration)
+        public Startup(IWebHostEnvironment env,IConfiguration configuration)
         {
             Configuration = configuration;
         }

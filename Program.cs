@@ -16,7 +16,7 @@ namespace web_chat_api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            InitializeDbIfNotExists(host);
+            //InitializeDbIfNotExists(host);
             host.Run();
         }
         private static void InitializeDbIfNotExists(IHost host)
